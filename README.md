@@ -8,6 +8,6 @@ idea、mysql8
 前台：随机抽奖、设置奖项
 后台：增删改查、导出
 # 前台页面
-![](https://github.com/matthews84/lottery/raw/main/demo/01.jpg)
+![](https://cdn.jsdelivr.net/gh/matthews84/lottery/demo/01.jpg)
 # 后台页面
-![](demo/02.png)
+![](https://cdn.jsdelivr.net/gh/matthews84/lottery/demo/02.png)
