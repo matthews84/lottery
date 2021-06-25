@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longzhi.lottery.mapper.StaffMapper" >
+  <resultMap id="BaseResultMap" type="com.longzhi.lottery.domain.Staff" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="tele" property="tele" jdbcType="VARCHAR" />
+    <result column="dep" property="dep" jdbcType="VARCHAR" />
+    <result column="prizelevel" property="prizelevel" jdbcType="VARCHAR" />
+    <result column="prize" property="prize" jdbcType="VARCHAR" />
+    <result column="isDelete" property="isDelete" jdbcType="INTEGER" />
+  </resultMap>
+<!--sql语句不要有空格-->
+  <sql id="Base_Column_List" >
+    id, name, sex, age, tele, isDelete
+  </sql>
+  <!--selectByPrimaryKey-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from staff
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!--  导入数据-->
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into staff(sid,name,sex,age,tele,dep) values
+    <foreach collection="list" item="staffTemp" separator=",">
+    (#{staffTemp.sid},#{staffTemp.name},#{staffTemp.sex},#{staffTemp.age},#{staffTemp.tele},#{staffTemp.dep})
+    </foreach>
+  </insert>
+  <!--findAllStaff-->
+  <select id="findAllStaff" resultMap="BaseResultMap">
+    select * from staff where isDelete = 0
+  </select>
+  <!--findWinner-->
+  <select id="findWinner" resultMap="BaseResultMap">
+    select * from staff s, winner w where s.sid=w.sid
+  </select>
+
+<!--设置主键自增为1-->
+  <update id="SetStaffTableId">
+    alter table staff auto_increment=1
+  </update>
+  <!--设置主键自增为1-->
+  <update id="SetWinnerTableId">
+    alter table winner auto_increment=1
+  </update>
+  <!--插入数据-->
+  <insert id="insertSingle" >
+    insert into staff(id,sid,name,sex,age,tele,dep)
+                values (null,#{sid,jdbcType=VARCHAR},
+                #{name,jdbcType=VARCHAR},
+                #{sex,jdbcType=VARCHAR},
+                #{age,jdbcType=VARCHAR},
+                #{tele,jdbcType=VARCHAR},
+                #{dep,jdbcType=VARCHAR})
+ </insert>
+<!--删除数据-->
+  <update id="DelByPrimaryKey" >
+    update staff set isDelete = 1 where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+<!--updateStaff-->
+  <update id="updateByPrimaryKey" >
+    update staff set name = #{name,jdbcType=VARCHAR},sex = #{sex,jdbcType=VARCHAR},age = #{age,jdbcType=VARCHAR},tele = #{tele,jdbcType=VARCHAR},dep = #{dep,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+<!--  更新中奖信息-->
+  <update id="insertLottery" >
+    insert into winner(sid,prizelevel,prize) values (#{sid,jdbcType=VARCHAR},#{prizelevel,jdbcType=VARCHAR},#{prize,jdbcType=VARCHAR})
+  </update>
+</mapper>

@@ -1,0 +1,38 @@
+[
+  {
+    "type": 0,
+    "title": {
+      "城市": "city",
+      "区县": "county",
+      "学校编号": "schoolId",
+      "学校名称": "schoolName"
+    },
+    "data": {
+      "id":0,
+      "city": "",
+      "county": "",
+      "schoolId": "",
+      "schoolName": ""
+    }
+  },
+  {
+    "type": 1,
+    "title": {
+      "员工编号": "sid",
+      "员工姓名": "name",
+      "性别": "sex",
+      "年龄": "age",
+      "电话号码": "tele",
+      "部门": "dep"
+    },
+    "data": {
+      "uid":0,
+      "sid": "",
+      "name": "",
+      "sex": "",
+      "age": "",
+      "tele": ""
+    }
+  }
+
+]
